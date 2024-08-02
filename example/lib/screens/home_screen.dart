@@ -1,4 +1,5 @@
 import 'package:example/screens/circle_example_screen.dart';
+import 'package:example/screens/underline_example_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
           ),
           Center(
             child: OutlinedButton(
-              onPressed: () => {},
+              onPressed: () => context.push(UnderlineExampleScreen.route),
               child: const Text("Underlined Text Examples"),
             ),
           ),

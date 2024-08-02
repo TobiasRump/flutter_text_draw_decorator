@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text_draw_decorator/flutter_text_draw_decorator.dart';
 
-class CircleExampleScreen extends StatelessWidget {
-  static const String route = '/circle-example';
-  const CircleExampleScreen({super.key});
+class UnderlineExampleScreen extends StatelessWidget {
+  static const String route = '/underline-example';
+  const UnderlineExampleScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Circle Text Examples')),
+      appBar: AppBar(title: const Text('Underline Text Examples')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: TextDrawDecorator.circled(
+            child: TextDrawDecorator.underlined(
               text: const Text(
-                'Circled with Text',
+                'Underlined with Text',
                 style: TextStyle(fontSize: 24),
               ),
               color: Colors.orange,
@@ -26,10 +26,10 @@ class CircleExampleScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 24.0),
             child: Center(
-              child: TextDrawDecorator.circled(
-                decoration: CircleDecorations.openCircled,
+              child: TextDrawDecorator.underlined(
+                decoration: UnderlineDecorations.curved,
                 text: const Text(
-                  'Circled',
+                  'Underlined',
                   style: TextStyle(fontSize: 32),
                 ),
                 color: Colors.red,
