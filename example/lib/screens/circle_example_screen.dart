@@ -9,35 +9,30 @@ class CircleExampleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Circle Text Examples')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: TextDrawDecorator.circled(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextDrawDecorator.circled(
               text: const Text(
-                'Circled with Text',
-                style: TextStyle(fontSize: 24),
+                'Closed Circle',
+                style: TextStyle(fontSize: 32),
               ),
               color: Colors.orange,
               strokeWidth: 2,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 24.0),
-            child: Center(
-              child: TextDrawDecorator.circled(
-                decoration: CircleDecorations.openCircled,
-                text: const Text(
-                  'Circled',
-                  style: TextStyle(fontSize: 32),
-                ),
-                color: Colors.red,
-                strokeWidth: 2,
+            const SizedBox(height: 32),
+            TextDrawDecorator.circled(
+              decoration: CircleDecorations.openCircled,
+              text: const Text(
+                'Open Circled',
+                style: TextStyle(fontSize: 32),
               ),
-            ),
-          )
-        ],
+              color: Colors.red,
+              strokeWidth: 2,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -12,7 +12,7 @@ enum CircleDecorations {
       case CircleDecorations.openCircled:
         return OpenCirclePainter(textStyle: text.style ?? const TextStyle(), color: color, text: text.data ?? '', strokeWidth: strokeWidth);
       case CircleDecorations.closedCircled:
-        return OpenCirclePainter(textStyle: text.style ?? const TextStyle(), color: color, text: text.data ?? '', strokeWidth: strokeWidth);
+        return ClosedCirclePainter(textStyle: text.style ?? const TextStyle(), color: color, text: text.data ?? '', strokeWidth: strokeWidth);
       //...
     }
   }
