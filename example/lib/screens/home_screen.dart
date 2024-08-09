@@ -1,3 +1,4 @@
+import 'package:example/screens/box_example_screen.dart';
 import 'package:example/screens/circle_example_screen.dart';
 import 'package:example/screens/underline_example_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class HomeScreen extends StatelessWidget {
           ),
           Center(
             child: OutlinedButton(
-              onPressed: () => {},
+              onPressed: () => context.push(BoxExampleScreen.route),
               child: const Text("Boxed Text Examples"),
             ),
           ),

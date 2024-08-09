@@ -1,3 +1,4 @@
+import 'package:example/screens/box_example_screen.dart';
 import 'package:example/screens/circle_example_screen.dart';
 import 'package:example/screens/home_screen.dart';
 import 'package:example/screens/underline_example_screen.dart';
@@ -25,6 +26,12 @@ class AppRouter {
               return const UnderlineExampleScreen();
             },
           ),
+          GoRoute(
+            path: BoxExampleScreen.route,
+            builder: (BuildContext context, GoRouterState state) {
+              return const BoxExampleScreen();
+            },
+          )
         ],
       );
 }

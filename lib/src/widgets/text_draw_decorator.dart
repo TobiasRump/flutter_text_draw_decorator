@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text_draw_decorator/flutter_text_draw_decorator.dart';
+import 'package:flutter_text_draw_decorator/src/painter/box/box_painter.dart';
 import 'package:flutter_text_draw_decorator/src/painter/underline/underline_painter.dart';
 
 enum CircleDecorations {
@@ -34,6 +35,28 @@ enum UnderlineDecorations {
   }
 }
 
+enum BoxDecorations {
+  rounded,
+  bubble;
+
+  CustomPainter getPainter(Text text, double borderRadius, double strokeWidth) {
+    switch (this) {
+      case BoxDecorations.rounded:
+        return RoundedBoxPainter(text: text, borderRadius: borderRadius, strokeWidth: strokeWidth);
+      case BoxDecorations.bubble:
+        return BubbleBoxPainter(
+          text: text,
+          padding: 4,
+          bubbleColor: Colors.orange,
+          tip: const BubbleBoxTip(
+            position: TipPosition.left,
+            orientation: TipOrientation.left,
+          ),
+        );
+    }
+  }
+}
+
 class TextDrawDecorator extends StatelessWidget {
   final Text text;
   final CustomPainter painter;
@@ -44,19 +67,39 @@ class TextDrawDecorator extends StatelessWidget {
     super.key,
   });
 
-  factory TextDrawDecorator.circled(
-      {required Text text, CircleDecorations decoration = CircleDecorations.closedCircled, Color color = Colors.black, double strokeWidth = 1}) {
+  factory TextDrawDecorator.circled({
+    required Text text,
+    CircleDecorations decoration = CircleDecorations.closedCircled,
+    Color color = Colors.black,
+    double strokeWidth = 1,
+  }) {
     return TextDrawDecorator(
       text: text,
       painter: decoration.getPainter(text, color, strokeWidth),
     );
   }
 
-  factory TextDrawDecorator.underlined(
-      {required Text text, UnderlineDecorations decoration = UnderlineDecorations.horizontal, Color color = Colors.black, double strokeWidth = 1}) {
+  factory TextDrawDecorator.underlined({
+    required Text text,
+    UnderlineDecorations decoration = UnderlineDecorations.horizontal,
+    Color color = Colors.black,
+    double strokeWidth = 1,
+  }) {
     return TextDrawDecorator(
       text: text,
       painter: decoration.getPainter(text, color, strokeWidth),
+    );
+  }
+
+  factory TextDrawDecorator.boxed({
+    required Text text,
+    BoxDecorations decoration = BoxDecorations.bubble,
+    double borderRadius = 1,
+    double strokeWidth = 1,
+  }) {
+    return TextDrawDecorator(
+      text: text,
+      painter: decoration.getPainter(text, borderRadius, strokeWidth),
     );
   }
 
