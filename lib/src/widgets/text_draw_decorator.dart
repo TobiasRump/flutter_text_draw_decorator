@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text_draw_decorator/flutter_text_draw_decorator.dart';
 import 'package:flutter_text_draw_decorator/src/painter/box/box_painter.dart';
+import 'package:flutter_text_draw_decorator/src/painter/box/wavy_box_painter.dart';
 import 'package:flutter_text_draw_decorator/src/painter/underline/underline_painter.dart';
 
 enum CircleDecorations {
@@ -37,7 +38,8 @@ enum UnderlineDecorations {
 
 enum BoxDecorations {
   rounded,
-  bubble;
+  bubble,
+  wavy;
 
   CustomPainter getPainter(Text text, double borderRadius, double strokeWidth) {
     switch (this) {
@@ -53,6 +55,8 @@ enum BoxDecorations {
             orientation: TipOrientation.left,
           ),
         );
+      case BoxDecorations.wavy:
+        return WavyBoxPainter(text: text, borderColor: Colors.black);
     }
   }
 }

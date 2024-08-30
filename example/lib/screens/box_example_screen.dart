@@ -40,6 +40,16 @@ class BoxExampleScreen extends StatelessWidget {
               strokeWidth: 2,
               borderRadius: 16,
             ),
+            const SizedBox(height: 32),
+            TextDrawDecorator.boxed(
+              decoration: BoxDecorations.wavy,
+              text: const Text(
+                'Wavy Text 1',
+                style: TextStyle(fontSize: 32),
+              ),
+              strokeWidth: 2,
+              borderRadius: 16,
+            ),
           ],
         ),
       ),

@@ -92,7 +92,7 @@ class BubbleBoxPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
       ..color = bubbleColor
-      ..strokeWidth = 2
+      ..strokeWidth = 2 // TODO: add as param?
       ..style = PaintingStyle.stroke;
 
     // Calculate text size
