@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text_draw_decorator/flutter_text_draw_decorator.dart';
 import 'package:flutter_text_draw_decorator/src/painter/box/box_painter.dart';
 import 'package:flutter_text_draw_decorator/src/painter/box/wavy_box_painter.dart';
+import 'package:flutter_text_draw_decorator/src/painter/highlight/highlight_painter.dart';
 import 'package:flutter_text_draw_decorator/src/painter/underline/underline_painter.dart';
+
+// TODO: Cleanup optionals, maybe use classes instead of enum?
 
 enum CircleDecorations {
   openCircled,
@@ -61,6 +64,22 @@ enum BoxDecorations {
   }
 }
 
+enum HighlightDecorations {
+  textmarker;
+
+  CustomPainter getPainter(Text text, Color? color, double? strokeWidth) {
+    switch (this) {
+      case HighlightDecorations.textmarker:
+        return HighlightPainter(
+          text: text.data ?? '',
+          color: color ?? Colors.yellow,
+          textStyle: text.style ?? const TextStyle(),
+          strokeWidth: strokeWidth,
+        );
+    }
+  }
+}
+
 class TextDrawDecorator extends StatelessWidget {
   final Text text;
   final CustomPainter painter;
@@ -105,6 +124,15 @@ class TextDrawDecorator extends StatelessWidget {
       text: text,
       painter: decoration.getPainter(text, borderRadius, strokeWidth),
     );
+  }
+
+  factory TextDrawDecorator.highlighted({
+    required Text text,
+    Color? color,
+    double? strokeWidth,
+    HighlightDecorations decoration = HighlightDecorations.textmarker,
+  }) {
+    return TextDrawDecorator(text: text, painter: decoration.getPainter(text, color, strokeWidth));
   }
 
   @override

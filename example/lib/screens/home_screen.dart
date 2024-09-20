@@ -1,6 +1,7 @@
-import 'package:example/screens/box_example_screen.dart';
-import 'package:example/screens/circle_example_screen.dart';
-import 'package:example/screens/underline_example_screen.dart';
+import 'package:example/screens/examples/box_example_screen.dart';
+import 'package:example/screens/examples/circle_example_screen.dart';
+import 'package:example/screens/examples/highlight_example_screen.dart';
+import 'package:example/screens/examples/underline_example_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,6 +34,12 @@ class HomeScreen extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () => context.push(BoxExampleScreen.route),
               child: const Text("Boxed Text Examples"),
+            ),
+          ),
+          Center(
+            child: OutlinedButton(
+              onPressed: () => context.push(HighlightExampleScreen.route),
+              child: const Text("Highlighted Text Examples"),
             ),
           ),
         ],
