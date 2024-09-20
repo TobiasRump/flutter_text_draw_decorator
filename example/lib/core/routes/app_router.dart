@@ -1,8 +1,10 @@
 import 'package:example/screens/box_example_screen.dart';
 import 'package:example/screens/circle_example_screen.dart';
+import 'package:example/screens/highlight_example_screen.dart';
 import 'package:example/screens/home_screen.dart';
 import 'package:example/screens/underline_example_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -17,19 +19,25 @@ class AppRouter {
           GoRoute(
             path: CircleExampleScreen.route,
             builder: (BuildContext context, GoRouterState state) {
-              return const CircleExampleScreen();
+              return CircleExampleScreen(key: UniqueKey());
             },
           ),
           GoRoute(
             path: UnderlineExampleScreen.route,
             builder: (BuildContext context, GoRouterState state) {
-              return const UnderlineExampleScreen();
+              return UnderlineExampleScreen(key: UniqueKey());
             },
           ),
           GoRoute(
             path: BoxExampleScreen.route,
             builder: (BuildContext context, GoRouterState state) {
-              return const BoxExampleScreen();
+              return BoxExampleScreen(key: UniqueKey());
+            },
+          ),
+          GoRoute(
+            path: HighlightExampleScreen.route,
+            builder: (BuildContext context, GoRouterState state) {
+              return HighlightExampleScreen(key: UniqueKey());
             },
           )
         ],
