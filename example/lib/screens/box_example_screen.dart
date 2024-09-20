@@ -8,7 +8,7 @@ class BoxExampleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Circle Text Examples')),
+      appBar: AppBar(title: const Text('Box Text Examples')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
