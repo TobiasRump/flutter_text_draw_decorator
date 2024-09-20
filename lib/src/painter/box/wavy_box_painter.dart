@@ -34,6 +34,7 @@ class WavyBoxPainter extends CustomPainter {
 
     final path = Path();
 
+    // TODO: Fix corners, maybe with [arcTo]?
     path.moveTo(0, 0);
     int nHorizontalSegments = 10;
     int lengthSegment = (textWidth / nHorizontalSegments).ceil();
