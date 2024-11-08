@@ -1,19 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class RoundedBoxPainter extends CustomPainter {
   final Text text;
   final double borderRadius;
   final double strokeWidth;
-  final double horizontalPadding;
-  final double verticalPadding;
 
   RoundedBoxPainter({
     super.repaint,
     required this.text,
     required this.borderRadius,
     required this.strokeWidth,
-    this.horizontalPadding = 8,
-    this.verticalPadding = 16,
   });
 
   @override
@@ -29,8 +27,15 @@ class RoundedBoxPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     )..layout();
 
-    final textWidth = textPainter.width + horizontalPadding * 2;
-    final textHeight = textPainter.height + verticalPadding * 2;
+    final textWidth = textPainter.width;
+    final boxWidth = min(textWidth, size.width);
+
+    final textHeight = textPainter.height;
+    double boxHeight = textHeight;
+
+    final heightFactor = (textWidth / size.width);
+    final nLines = heightFactor.ceil();
+    boxHeight = nLines * textHeight;
 
     final centerOffset = Offset(
       size.width / 2,
@@ -38,7 +43,7 @@ class RoundedBoxPainter extends CustomPainter {
     );
 
     final rrect = RRect.fromRectAndRadius(
-      Rect.fromCenter(center: centerOffset, width: textWidth, height: textHeight),
+      Rect.fromCenter(center: centerOffset, width: boxWidth, height: boxHeight),
       Radius.circular(borderRadius),
     );
 

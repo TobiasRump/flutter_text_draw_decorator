@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class WavyBoxPainter extends CustomPainter {
@@ -30,24 +32,32 @@ class WavyBoxPainter extends CustomPainter {
     )..layout();
 
     final textWidth = textPainter.width;
-    final textHeight = textPainter.height;
+    double textHeight = textPainter.height;
 
-    final path = Path();
+    final heightFactor = (textWidth / size.width);
+    final nLines = heightFactor.ceil();
+    textHeight = nLines * textHeight;
+
+    const nHorizontalSegments = 10;
+    final availableWidth = min(textWidth, size.width);
+    final lengthSegment = (availableWidth / nHorizontalSegments).ceil();
+    final nVerticalSegments = (textHeight / lengthSegment).ceil();
+
+    const arcHeight = -10.0;
+    const weight = 1.0;
+    double lastX2 = 0.0;
 
     // TODO: Fix corners, maybe with [arcTo]?
-    path.moveTo(0, 0);
-    int nHorizontalSegments = 10;
-    int lengthSegment = (textWidth / nHorizontalSegments).ceil();
-    double arcHeight = -10;
-    double weight = 1;
-    double lastX2 = 0;
+    final path = Path()..moveTo(0, 0);
+
+    // Upper left to upper right
     for (int i = 1; i <= nHorizontalSegments; i++) {
       final double x2 = i * lengthSegment / 1.0;
       path.conicTo(lastX2 + lengthSegment / 2, arcHeight, x2 / 1.0, 0, weight);
       lastX2 = x2;
     }
 
-    int nVerticalSegments = (textHeight / lengthSegment).ceil();
+    // Upper right to lower right
     double lastY2 = 0;
     for (int i = 1; i <= nVerticalSegments; i++) {
       final double y2 = i * lengthSegment / 1.0;
@@ -55,12 +65,14 @@ class WavyBoxPainter extends CustomPainter {
       lastY2 = y2;
     }
 
+    // Lower right to lower left
     for (int i = nHorizontalSegments - 1; i >= 0; i--) {
       final double x2 = i * lengthSegment / 1.0;
       path.conicTo(lastX2 - lengthSegment / 2, lastY2 - arcHeight, x2 / 1.0, lastY2, weight);
       lastX2 = x2;
     }
 
+    // Lower left to upper right
     for (int i = nVerticalSegments - 1; i >= 0; i--) {
       final double y2 = i * lengthSegment / 1.0;
       path.conicTo(arcHeight, y2 + lengthSegment / 2, lastX2, y2, weight);
