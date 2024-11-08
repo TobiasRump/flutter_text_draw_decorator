@@ -14,10 +14,6 @@ class WavyBoxPainter extends CustomPainter {
     super.repaint,
   });
 
-  double _calcAspectRatio(double width, double height) {
-    return 0;
-  }
-
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()

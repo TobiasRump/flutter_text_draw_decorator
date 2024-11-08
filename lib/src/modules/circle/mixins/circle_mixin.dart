@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text_draw_decorator/src/modules/circle/classes/circle_size.dart';
 
-class CircleSize {
-  final double textWidth;
-  final double textHeight;
-  final double horizontalRadius;
-  final double verticalRadius;
-
-  CircleSize({
-    required this.textWidth,
-    required this.textHeight,
-    required this.horizontalRadius,
-    required this.verticalRadius,
-  });
-}
-
-mixin CircleBase {
+mixin CircleConstraints {
   getCircleSizes({
     required String text,
     required TextStyle textStyle,

@@ -1,5 +1,4 @@
 library flutter_text_draw_decorator;
 
-export 'src/painter/circle/circle_base.dart';
-export 'src/painter/circle/circle_painter.dart';
 export 'src/widgets/text_draw_decorator.dart';
+export 'src/modules/base/styles.dart';
