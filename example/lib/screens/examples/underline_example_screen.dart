@@ -27,7 +27,7 @@ class UnderlineExampleScreen extends StatelessWidget {
             ),
             Center(
               child: TextDrawDecorator.underlined(
-                decoration: UnderlineDecorations.curved,
+                style: UnderlineStyle.curved,
                 text: const Text(
                   'Underlined',
                   style: TextStyle(fontSize: 32),
@@ -39,7 +39,7 @@ class UnderlineExampleScreen extends StatelessWidget {
             const SizedBox(height: 32),
             Center(
               child: TextDrawDecorator.underlined(
-                decoration: UnderlineDecorations.curved,
+                style: UnderlineStyle.curved,
                 text: const Text(
                   'Franz jagt im komplett verwahrlosten Taxi quer durch Berlin',
                   style: TextStyle(fontSize: 16),

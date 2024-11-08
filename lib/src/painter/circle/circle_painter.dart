@@ -3,32 +3,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'circle_base.dart';
 
-abstract class CirclePainter extends CustomPainter with CircleBase {
-  final Color color;
-  final TextStyle textStyle;
-  final double strokeWidth;
-  CirclePainter({
-    required this.color,
-    required this.strokeWidth,
-    required this.textStyle,
-  });
-}
-
-class ClosedCirclePainter extends CirclePainter {
-  final String text;
-
+class ClosedCirclePainter extends TextDecorationPainter with CircleBase {
   ClosedCirclePainter({
-    required this.text,
+    required super.text,
     required super.textStyle,
-    required super.color,
-    super.strokeWidth = 1,
-  }) : assert(text != '' && strokeWidth > 0);
+    required super.decoration,
+  }) : assert(text != '' && decoration.strokeWidth > 0);
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color
-      ..strokeWidth = strokeWidth
+      ..color = decoration.color
+      ..strokeWidth = decoration.strokeWidth
       ..style = PaintingStyle.stroke;
 
     final circleSize = getCircleSizes(text: text, textStyle: textStyle);
@@ -58,24 +44,33 @@ class ClosedCirclePainter extends CirclePainter {
   }
 }
 
-class OpenCirclePainter extends CustomPainter with CircleBase {
+abstract class DecorationBase {
   final Color color;
-  final String text;
-  final TextStyle textStyle;
   final double strokeWidth;
 
+  const DecorationBase({required this.color, required this.strokeWidth});
+}
+
+abstract class TextDecorationPainter extends CustomPainter {
+  final String text;
+  final TextStyle textStyle;
+  final DecorationBase decoration;
+
+  TextDecorationPainter({super.repaint, required this.text, required this.textStyle, required this.decoration});
+}
+
+class OpenCirclePainter extends TextDecorationPainter with CircleBase {
   OpenCirclePainter({
-    required this.color,
-    required this.text,
-    required this.textStyle,
-    this.strokeWidth = 1,
-  }) : assert(text != '' && strokeWidth > 0);
+    required super.text,
+    required super.textStyle,
+    required super.decoration,
+  }) : assert(text != '' && decoration.strokeWidth > 0);
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color
-      ..strokeWidth = strokeWidth
+      ..color = decoration.color
+      ..strokeWidth = decoration.strokeWidth
       ..style = PaintingStyle.stroke;
 
     final circleSize = getCircleSizes(text: text, textStyle: textStyle);

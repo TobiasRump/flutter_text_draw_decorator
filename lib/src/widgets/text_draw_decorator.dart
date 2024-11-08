@@ -6,49 +6,56 @@ import 'package:flutter_text_draw_decorator/src/painter/highlight/highlight_pain
 import 'package:flutter_text_draw_decorator/src/painter/underline/underline_painter.dart';
 
 // TODO: Cleanup optionals, maybe use classes instead of enum?
+class CircleDecoration extends DecorationBase {
+  const CircleDecoration({required super.color, required super.strokeWidth});
 
-enum CircleDecorations {
+  factory CircleDecoration.standard() {
+    return const CircleDecoration(color: Colors.orange, strokeWidth: 1);
+  }
+}
+
+enum CircleStyle {
   openCircled,
   closedCircled;
   //...
 
-  CustomPainter getPainter(Text text, Color color, double strokeWidth) {
+  CustomPainter getPainter(Text text, {CircleDecoration decoration = const CircleDecoration(color: Colors.orange, strokeWidth: 1)}) {
     switch (this) {
-      case CircleDecorations.openCircled:
-        return OpenCirclePainter(textStyle: text.style ?? const TextStyle(), color: color, text: text.data ?? '', strokeWidth: strokeWidth);
-      case CircleDecorations.closedCircled:
-        return ClosedCirclePainter(textStyle: text.style ?? const TextStyle(), color: color, text: text.data ?? '', strokeWidth: strokeWidth);
+      case CircleStyle.openCircled:
+        return OpenCirclePainter(text: text.data ?? '', textStyle: text.style ?? const TextStyle(), decoration: decoration);
+      case CircleStyle.closedCircled:
+        return ClosedCirclePainter(text: text.data ?? '', textStyle: text.style ?? const TextStyle(), decoration: decoration);
       //...
     }
   }
 }
 
-enum UnderlineDecorations {
+enum UnderlineStyle {
   horizontal,
   curved;
   //...
 
   CustomPainter getPainter(Text text, Color color, double strokeWidth) {
     switch (this) {
-      case UnderlineDecorations.horizontal:
+      case UnderlineStyle.horizontal:
         return HorizontalUnderlinePainter(color: color, strokeWidth: strokeWidth);
-      case UnderlineDecorations.curved:
+      case UnderlineStyle.curved:
         return CurvedUnderlinePainter(textStyle: text.style ?? const TextStyle(), color: color, text: text.data ?? '', strokeWidth: strokeWidth);
       //...
     }
   }
 }
 
-enum BoxDecorations {
+enum BoxStyle {
   rounded,
   bubble,
   wavy;
 
   CustomPainter getPainter(Text text, double borderRadius, double strokeWidth) {
     switch (this) {
-      case BoxDecorations.rounded:
+      case BoxStyle.rounded:
         return RoundedBoxPainter(text: text, borderRadius: borderRadius, strokeWidth: strokeWidth);
-      case BoxDecorations.bubble:
+      case BoxStyle.bubble:
         return BubbleBoxPainter(
           text: text,
           padding: 4,
@@ -58,18 +65,18 @@ enum BoxDecorations {
             orientation: TipOrientation.left,
           ),
         );
-      case BoxDecorations.wavy:
+      case BoxStyle.wavy:
         return WavyBoxPainter(text: text, borderColor: Colors.black);
     }
   }
 }
 
-enum HighlightDecorations {
+enum HighlightStyle {
   textmarker;
 
   CustomPainter getPainter(Text text, Color? color, double? strokeWidth) {
     switch (this) {
-      case HighlightDecorations.textmarker:
+      case HighlightStyle.textmarker:
         return HighlightPainter(
           text: text.data ?? '',
           color: color ?? Colors.yellow,
@@ -92,47 +99,46 @@ class TextDrawDecorator extends StatelessWidget {
 
   factory TextDrawDecorator.circled({
     required Text text,
-    CircleDecorations decoration = CircleDecorations.closedCircled,
-    Color color = Colors.black,
-    double strokeWidth = 1,
+    CircleStyle style = CircleStyle.closedCircled,
+    CircleDecoration? decoration,
   }) {
     return TextDrawDecorator(
       text: text,
-      painter: decoration.getPainter(text, color, strokeWidth),
+      painter: style.getPainter(text, decoration: CircleDecoration.standard()),
     );
   }
 
   factory TextDrawDecorator.underlined({
     required Text text,
-    UnderlineDecorations decoration = UnderlineDecorations.horizontal,
+    UnderlineStyle style = UnderlineStyle.horizontal,
     Color color = Colors.black,
     double strokeWidth = 1,
   }) {
     return TextDrawDecorator(
       text: text,
-      painter: decoration.getPainter(text, color, strokeWidth),
+      painter: style.getPainter(text, color, strokeWidth),
     );
   }
 
   factory TextDrawDecorator.boxed({
     required Text text,
-    BoxDecorations decoration = BoxDecorations.bubble,
+    BoxStyle style = BoxStyle.bubble,
     double borderRadius = 1,
     double strokeWidth = 1,
   }) {
     return TextDrawDecorator(
       text: text,
-      painter: decoration.getPainter(text, borderRadius, strokeWidth),
+      painter: style.getPainter(text, borderRadius, strokeWidth),
     );
   }
 
   factory TextDrawDecorator.highlighted({
     required Text text,
+    HighlightStyle style = HighlightStyle.textmarker,
     Color? color,
     double? strokeWidth,
-    HighlightDecorations decoration = HighlightDecorations.textmarker,
   }) {
-    return TextDrawDecorator(text: text, painter: decoration.getPainter(text, color, strokeWidth));
+    return TextDrawDecorator(text: text, painter: style.getPainter(text, color, strokeWidth));
   }
 
   @override
